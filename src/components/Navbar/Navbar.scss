@@ -1,0 +1,63 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  padding: 20px 0;
+  transition: $transition;
+
+  &.scrolled {
+    background: white;
+    padding: 14px 0;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+  }
+
+  .nav-container {
+    @include flex-between;
+    @include container;
+  }
+
+  .nav-brand {
+    @include flex-center;
+    gap: 10px;
+
+    .nav-logo {
+      height: 44px;
+      width: auto;
+    }
+
+    .nav-name {
+      font-family: $font-head;
+      font-weight: 700;
+      font-size: 24px;
+      color: $color-dark;
+    }
+  }
+
+  .nav-links {
+    @include flex-center;
+    gap: 40px;
+
+    a {
+      font-family: $font-body;
+      font-size: 15px;
+      font-weight: 600;
+      color: $color-dark;
+      transition: $transition;
+
+      &:hover {
+        color: $color-primary;
+      }
+    }
+  }
+
+  .nav-order-btn {
+    @include button($color-primary);
+    font-weight: 600;
+    font-size: 15px;
+  }
+}

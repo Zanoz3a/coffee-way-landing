@@ -1,0 +1,41 @@
+@use 'variables' as *;
+@use 'sass:color';
+
+@function hover-color($base-color) {
+  @return color.adjust($base-color, $lightness: -10%);
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+@mixin button ($bg, $color: white) {
+  background-color: $bg;
+  color: $color;
+  padding: 14px 32px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: $font-body;
+  transition: $transition;
+
+  &:hover {
+    opacity: 0.85;
+    transform: translateY(-2px);
+  }
+}
