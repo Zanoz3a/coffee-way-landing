@@ -28,7 +28,7 @@ const cards = [
 
 const About = () => {
     return (
-        <section className="about-section">
+        <section className="about-section" id="about">
             <div className="about-container">
                 <div className="about-header">
                     <p className="about-subtitle">Our story</p>

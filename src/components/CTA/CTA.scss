@@ -1,0 +1,56 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.cta {
+  display: flex;
+  height: calc(100vh);
+  padding: 120px 0;
+  background: $color-primary;
+  text-align: center;
+  justify-content: center;
+
+  .cta-container {
+    height: 100%;
+    @include flex-center;
+    flex-direction: column;
+    @include container;
+    max-width: 700px;
+  }
+
+  .cta-subtitle {
+    font-family: $font-body;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(white, 0.7);
+    margin-bottom: 20px;
+  }
+
+  .cta-title {
+    font-family: $font-head;
+    font-size: clamp(36px, 6vw, 64px);
+    font-weight: 700;
+    color: white;
+    line-height: 1.15;
+    margin-bottom: 24px;
+  }
+
+  .cta-text {
+    font-family: $font-body;
+    font-size: 17px;
+    color: rgba(white, 0.8);
+    line-height: 1.8;
+    margin-bottom: 48px;
+  }
+
+  .cta-btn {
+    @include button(white, $color-primary);
+    font-size: 16px;
+    font-weight: 700;
+
+    &:hover {
+      background: hover-color(white);
+    }
+  }
+}

@@ -1,0 +1,126 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.menu {
+  padding: 120px 0;
+  background: $color-light;
+
+  .menu-container {
+    @include container;
+  }
+
+  .menu-header {
+    text-align: center;
+    margin-bottom: 60px;
+
+    .menu-subtitle {
+      font-family: $font-body;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: $color-primary;
+      margin-bottom: 16px;
+    }
+
+    .menu-title {
+      font-family: $font-head;
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 700;
+      color: $color-dark;
+    }
+  }
+
+  .menu-filters {
+    @include flex-center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 60px;
+
+    .filter-btn {
+      @include button($color-accent, $color-primary);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 10px 24px;
+      transition: $transition;
+
+      &.active {
+        background: $color-primary;
+        color: white;
+      }
+
+      &:hover {
+        background: $color-accent;
+      }
+    }
+  }
+
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+
+  .menu-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: $transition;
+    animation: fadeUp 0.4s ease both;
+
+    &:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .menu-card-img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+    }
+
+    .menu-card-body {
+      padding: 20px;
+
+      .menu-card-name {
+        font-family: $font-head;
+        font-size: 20px;
+        font-weight: 600;
+        color: $color-dark;
+        margin-bottom: 8px;
+      }
+
+      .menu-card-desc {
+        font-family: $font-body;
+        font-size: 14px;
+        color: $color-text-light;
+        line-height: 1.6;
+        margin-bottom: 16px;
+      }
+
+      .menu-card-price {
+        font-family: $font-body;
+        font-size: 18px;
+        font-weight: 700;
+        color: $color-primary;
+      }
+    }
+  }
+}
+
+@for $i from 1 through 11 {
+  .menu-card:nth-child(#{$i}) {
+    animation-delay: #{$i * 0.08}s;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
