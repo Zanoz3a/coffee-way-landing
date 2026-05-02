@@ -98,11 +98,30 @@
         margin-bottom: 16px;
       }
 
-      .menu-card-price {
-        font-family: $font-body;
-        font-size: 18px;
-        font-weight: 700;
-        color: $color-primary;
+      .menu-footer-wrapper {
+        @include flex-between;
+        .menu-card-price {
+          font-family: $font-body;
+          font-size: 18px;
+          font-weight: 700;
+          color: $color-primary;
+        }
+
+        .add-item-into-cart {
+          box-sizing: border-box;
+          @include button($color-primary, white);
+          padding: 8px 12px;
+        }
+
+        .item-quantity-wrapper {
+          @include flex-center;
+          gap: 16px;
+        }
+
+        .update-quantity-btn {
+          @include button($color-primary, white);
+          padding: 8px 18px;
+        }
       }
     }
   }

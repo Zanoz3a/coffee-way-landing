@@ -1,0 +1,264 @@
+@use "../../styles/mixins" as *;
+@use "../../styles/variables" as *;
+
+.cart-sidebar {
+  position: fixed;
+  bottom: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  max-height: 50vh;
+  width: 80vw;
+
+  background-color: white;
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.15);
+  z-index: 200;
+
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  border-radius: 24px;
+  transition: $transition;
+
+  &.open {
+    bottom: 30px;
+  }
+
+  .sidebar-header, .sidebar-body {
+    max-height: 500px;
+    opacity: 1;
+    transition: max-height 0.2s ease-in-out, opacity 0.4s ease-in-out;
+  }
+
+  &.minimized {
+    .sidebar-body,
+    .sidebar-header {
+      max-height: 0;
+    }
+
+    .sidebar-body {
+      opacity: 0;
+    }
+
+    .sidebar-header .minimize-sidebar-btn {
+      &::before {
+        opacity: 1;
+      }
+
+      &::after {
+        opacity: 0;
+      }
+    }
+  }
+
+  .sidebar-header {
+    @include flex-between;
+    margin: 8px 6px;
+
+    h3 {
+      font-family: $font-head;
+      font-size: 18px;
+      font-weight: 700;
+      color: $color-dark;
+    }
+
+    .minimize-sidebar-btn {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 12px;
+      padding: 5px 20px;
+      width: 200px;
+      text-align: center;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+
+      border: none;
+      background-color: transparent;
+
+      cursor: pointer;
+      transition: $transition;
+
+      &::before {
+        content: '';
+        width: 40px;
+        height: 4px;
+        background: $color-accent;
+        border-radius: 4px;
+        opacity: 0;
+        transition: all ease-in-out 0.1s;
+      }
+
+      &::after {
+        content: '';
+        width: 40px;
+        height: 4px;
+        background: $color-accent;
+        border-radius: 4px;
+        opacity: 1;
+        transition: all ease-in-out 0.1s;
+      }
+
+      span {
+        font-family: $font-body;
+        font-size: 11px;
+        color: $color-text-light;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      &:hover {
+        color: $color-primary;
+
+        &::after {
+          background: $color-primary;
+          width: 60px;
+        }
+
+        &::before {
+          background: $color-primary;
+          width: 60px;
+        }
+
+        span {
+          color: $color-primary;
+        }
+      }
+    }
+
+    .sidebar-count {
+      font-family: $font-body;
+      font-size: 13px;
+      color: $color-text-dark;
+      background-color: $color-accent;
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+  }
+
+  .sidebar-body {
+    display: flex;
+    flex-direction: row;
+    gap: 22px;
+
+    overflow-y: hidden;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    .sidebar-item {
+      display: flex;
+      flex-direction: column;
+
+      align-items: center;
+      gap: 8px;
+
+      min-width: 10%;
+
+      img {
+        height: 64px;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+        border-radius: 16px;
+      }
+
+      .sidebar-item-info {
+        text-align: center;
+
+        h4 {
+          font-family: $font-body;
+          font-size: 12px;
+          font-weight: 600;
+          color: $color-dark;
+          margin-bottom: 2px;
+        }
+
+        span {
+          font-family: $font-body;
+          font-size: 12px;
+          color: $color-primary;
+          font-weight: 600;
+        }
+      }
+
+      .sidebar-item-controls {
+        @include flex-center;
+        gap: 6px;
+        margin-bottom: 10px;
+
+        .update-quantity-btn {
+          @include flex-center;
+          width: 24px;
+          height: 24px;
+
+          border: 1px solid $color-accent;
+          border-radius: 24px;
+
+          color: $color-text-dark;
+          background-color: $color-light;
+
+          font-size: 14px;
+
+          cursor: pointer;
+          transition: $transition;
+
+          &:hover {
+            background-color: $color-primary;
+            color: white;
+            border-color: $color-primary;
+          }
+        }
+
+        p {
+          font-family: $font-body;
+          font-size: 14px;
+          font-weight: 600;
+          color: $color-dark;
+          min-width: 16px;
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  .sidebar-footer {
+    @include flex-between;
+    flex-direction: row;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid $color-accent;
+
+    .sidebar-total {
+      display: flex;
+      flex-direction: column;
+
+      span:first-child {
+        font-family: $font-body;
+        font-size: 13px;
+        color: $color-text-light;
+      }
+
+      span:last-child {
+        font-family: $font-head;
+        font-size: 22px;
+        font-weight: 700;
+        color: $color-dark;
+      }
+    }
+
+    .sidebar-order-button {
+      @include button($color-primary);
+      font-size: 15px;
+      font-weight: 600;
+
+      &:hover {
+        background: hover-color($color-primary);
+      }
+    }
+  }
+}
+

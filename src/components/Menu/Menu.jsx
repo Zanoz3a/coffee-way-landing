@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useCart } from '../../context/CartContext.jsx'
 import './Menu.scss'
 
 const categories = ['All', 'Coffee', 'Bubble Tea', 'Desserts', 'Drip Bags', 'Soft Ice Cream']
@@ -19,6 +20,7 @@ const menuItems = [
 
 const Menu = () => {
     const [active, setActive] = useState('All')
+    const { cart, addToCart, updateCart, removeFromCart, totalItems, totalPrice } = useCart()
 
     const filtered = active === 'All'
         ? menuItems
@@ -43,16 +45,30 @@ const Menu = () => {
                     ))}
                 </div>
                 <div className="menu-grid">
-                    {filtered.map((item, index) => (
-                        <div className="menu-card" key={item.id} style={{ animationDelay: `${index * 0.1}s` }}>
-                            <img className="menu-card-img" src={"/menu-references/" + item.source + ".png"} alt={item.name} />
-                            <div className="menu-card-body">
-                                <h3 className="menu-card-name">{item.name}</h3>
-                                <p className="menu-card-desc">{item.desc}</p>
-                                <span className="menu-card-price">${item.price}</span>
+                    {filtered.map((item, index) => {
+                        const cartItems = cart.find(i => i.id === item.id);
+                        return (
+                            <div className="menu-card" key={item.id} style={{ animationDelay: `${index * 0.1}s` }}>
+                                <img className="menu-card-img" src={"/menu-references/" + item.source + ".png"} alt={item.name} />
+                                <div className="menu-card-body">
+                                    <h3 className="menu-card-name">{item.name}</h3>
+                                    <p className="menu-card-desc">{item.desc}</p>
+                                    <div className="menu-footer-wrapper">
+                                        <span className="menu-card-price">${item.price}</span>
+                                        {cartItems ?
+                                            <div className="item-quantity-wrapper">
+                                                <button className="update-quantity-btn" onClick={() => updateCart(item.id, cartItems.quantity - 1)}>-</button>
+                                                <p>{cartItems.quantity}</p>
+                                                <button className="update-quantity-btn" onClick={() => updateCart(item.id, cartItems.quantity + 1)}>+</button>
+                                            </div>
+                                            :
+                                            <button className="add-item-into-cart" onClick={() => addToCart(item)}>Add to cart</button>
+                                        }
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        )
+                    })}
                 </div>
             </div>
         </section>
