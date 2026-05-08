@@ -250,13 +250,29 @@
       }
     }
 
-    .sidebar-order-button {
-      @include button($color-primary);
-      font-size: 15px;
-      font-weight: 600;
+    .sidebar-footer-buttons {
+      display: flex;
+      gap: 20px;
 
-      &:hover {
-        background: hover-color($color-primary);
+      .sidebar-menu-button {
+        @include button(white, $color-primary);
+        border: 2px solid $color-primary;
+        font-size: 15px;
+        font-weight: 600;
+
+        &:hover {
+          background-color: $color-light;
+        }
+      }
+
+      .sidebar-order-button {
+        @include button($color-primary);
+        font-size: 15px;
+        font-weight: 600;
+
+        &:hover {
+          background: hover-color($color-primary);
+        }
       }
     }
   }

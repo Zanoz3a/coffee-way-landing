@@ -31,16 +31,20 @@
       margin-bottom: 40px;
     }
 
-    .hero-btn {
-      @include button($color-primary);
+    .hero-link-about {
+      font-family: $font-body;
       font-size: 16px;
       font-weight: 600;
+      color: $color-primary;
+      border-bottom: 2px solid $color-primary;
+      padding-bottom: 2px;
+      transition: $transition;
+
 
       &:hover {
-        background: hover-color($color-primary);
-        transform: translateY(-2px);
+        color: hover-color($color-primary);
+        border-color: hover-color($color-primary);
       }
     }
   }
-
 }

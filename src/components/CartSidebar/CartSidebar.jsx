@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import { useCart } from "../../context/CartContext.jsx"
 import "./CartSidebar.scss"
+import {useNavigate} from "react-router-dom";
 
 const CartSidebar = ({isOpen}) => {
     const { cart, updateCart, totalItems, totalPrice } = useCart()
     const [minimized, setMinimized] = useState(false)
+    const navigate = useNavigate()
 
     return (
         <div className={`cart-sidebar ${isOpen ? 'open' : ''} ${minimized ? 'minimized' : ''}`}>
@@ -43,7 +45,16 @@ const CartSidebar = ({isOpen}) => {
                     <span>Total</span>
                     <span>${totalPrice}</span>
                 </div>
-                <button className="sidebar-order-button">Proceed to order</button>
+                <div className="sidebar-footer-buttons">
+                    <button
+                        className="sidebar-menu-button"
+                        onClick={() => navigate(('/menu'))}
+                    >View menu</button>
+                    <button
+                        className="sidebar-order-button"
+                        onClick={() => navigate('/order')}
+                    >Proceed to order</button>
+                </div>
             </div>
         </div>
     )
