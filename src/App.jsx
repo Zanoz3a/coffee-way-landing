@@ -1,14 +1,16 @@
 import { Routes, Route } from 'react-router-dom';
 import './App.scss'
 
-import Home from "./pages/Home/Home.jsx";
-import Order from './pages/Order/Order.jsx'
+import HomePage from "./pages/HomePage/HomePage.jsx";
+import MenuPage from "./pages/MenuPage/MenuPage.jsx";
+import OrderPage from './pages/OrderPage/OrderPage.jsx'
 
 function App() {
   return (
     <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/order" element={<Order />} />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/menu" element={<MenuPage />} />
+        <Route path="/order" element={<OrderPage />} />
     </Routes>
   )
 }

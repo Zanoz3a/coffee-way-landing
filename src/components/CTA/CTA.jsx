@@ -1,6 +1,8 @@
 import './CTA.scss'
+import {useNavigate} from "react-router-dom";
 
 const CTA = () => {
+    const navigate = useNavigate()
     return (
         <section className="cta">
             <div className="cta-container">
@@ -10,7 +12,10 @@ const CTA = () => {
                     We wish you a wonderful mood and a perfect day.
                     Come back soon — your favourite cup is already waiting for you. ☕
                 </p>
-                <button className="cta-btn">Make an order</button>
+                <button
+                    className="cta-btn"
+                    onClick={() => navigate('/menu')}
+                >Make an order</button>
             </div>
         </section>
     )

@@ -4,7 +4,7 @@ import "./CartSidebar.scss"
 import {useNavigate} from "react-router-dom";
 
 const CartSidebar = ({isOpen}) => {
-    const { cart, updateCart, totalItems, totalPrice } = useCart()
+    const { cart, updateCart, totalItems, totalPrice, toppingTotal } = useCart()
     const [minimized, setMinimized] = useState(false)
     const navigate = useNavigate()
 
@@ -43,12 +43,12 @@ const CartSidebar = ({isOpen}) => {
             <div className="sidebar-footer">
                 <div className="sidebar-total">
                     <span>Total</span>
-                    <span>${totalPrice}</span>
+                    <span>${totalPrice * 1.1}</span>
                 </div>
                 <div className="sidebar-footer-buttons">
                     <button
                         className="sidebar-menu-button"
-                        onClick={() => navigate(('/menu'))}
+                        onClick={() => navigate('/menu')}
                     >View menu</button>
                     <button
                         className="sidebar-order-button"

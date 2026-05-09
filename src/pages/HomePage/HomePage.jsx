@@ -8,7 +8,7 @@ import CTA from '../../components/CTA/CTA'
 import Footer from '../../components/Footer/Footer'
 import CartSidebar from '../../components/CartSidebar/CartSidebar'
 
-const Home = () => {
+const HomePage = () => {
     const [showCart, setShowCart] = useState(false)
     const { totalItems } = useCart()
 
@@ -35,4 +35,4 @@ const Home = () => {
     )
 }
 
-export default Home
+export default HomePage

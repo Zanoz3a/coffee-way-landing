@@ -2,9 +2,11 @@ import { useState, useEffect } from "react";
 
 import './Navbar.scss'
 import logo from '/logo.png'
+import {useNavigate} from "react-router-dom";
 
 const Navbar = () => {
     const [scroll, setScroll] = useState(false)
+    const navigate = useNavigate()
 
     useEffect(() => {
         const handleScroll = () => {
@@ -27,7 +29,10 @@ const Navbar = () => {
                     <li><a href="#menu">Menu</a></li>
                     <li><a href="#footer">Contact us</a></li>
                 </ul>
-                <button className="nav-order-btn">Make an order</button>
+                <button
+                    className="nav-order-btn"
+                    onClick={() => navigate('/menu')}
+                >Make an order</button>
             </div>
         </nav>
     )

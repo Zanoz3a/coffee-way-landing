@@ -37,6 +37,17 @@ export const CartProvider = ({ children }) => {
     const totalItems = cart.reduce((sum, i) => sum + i.quantity, 0);
     const totalPrice = cart.reduce((sum, i) => sum + i.price * i.quantity, 0).toFixed(2);
 
+    const [itemToppings, setItemToppings] = useState({});
+    const updateItemToppings = (id, toppings, toppingPrice) => {
+        setItemToppings(prev => ({
+            ...prev,
+            [id]: { toppings, toppingPrice }
+        }))
+    }
+
+    const toppingTotal = Object.values(itemToppings)
+        .reduce((sum, item) => sum + (item.toppingPrice || 0), 0)
+
     return (
         <CartContext.Provider
             value={{
@@ -46,7 +57,10 @@ export const CartProvider = ({ children }) => {
                 updateCart,
                 clearCart,
                 totalItems,
-                totalPrice
+                totalPrice,
+                itemToppings,
+                updateItemToppings,
+                toppingTotal
             }}
         > {children} </CartContext.Provider>
     )

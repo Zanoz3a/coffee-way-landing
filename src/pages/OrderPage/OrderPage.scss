@@ -1,0 +1,301 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.order-page {
+  background: $color-light;
+  min-height: 100vh;
+  padding: 40px 0;
+  font-family: $font-body;
+  color: $color-text-dark;
+}
+
+.navigation-container {
+  @include container;
+  @include flex-between;
+  margin-bottom: 20px;
+
+  button {
+    @include button($color-primary);
+    padding: 10px 18px;
+    font-size: 14px;
+  }
+}
+
+.order-container {
+  @include container;
+  background: white;
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: 0 10px 30px rgba(26, 46, 45, 0.08);
+}
+
+/* TITLE */
+.order-title {
+  font-family: $font-head;
+  font-size: 32px;
+  text-align: center;
+  margin-bottom: 24px;
+  color: $color-dark;
+}
+
+/* ORDER TYPE TOGGLE */
+.order-type {
+  @include flex-center;
+  gap: 12px;
+  margin-bottom: 30px;
+
+  button {
+    flex: 1;
+    padding: 12px 20px;
+    border-radius: 14px;
+    border: 1px solid $color-accent;
+    background: white;
+    color: $color-text-light;
+    cursor: pointer;
+    transition: $transition;
+    font-family: $font-body;
+
+    &:hover {
+      background: $color-light;
+    }
+
+    &.active {
+      background: $color-primary;
+      color: white;
+      border-color: $color-primary;
+    }
+  }
+}
+
+/* ITEMS */
+.order-items {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* ITEM CARD */
+.order-item {
+  display: flex;
+  gap: 18px;
+  background: white;
+  border: 1px solid $color-accent;
+  border-radius: 18px;
+  padding: 18px;
+  transition: $transition;
+
+  &:hover {
+    box-shadow: 0 8px 20px rgba(42, 157, 143, 0.08);
+  }
+
+  img {
+    width: 120px;
+    height: 120px;
+    border-radius: 14px;
+    object-fit: cover;
+  }
+}
+
+.order-item-content {
+  flex: 1;
+}
+
+/* HEADER */
+.order-item-header {
+  @include flex-between;
+  gap: 20px;
+
+  h3 {
+    font-family: $font-head;
+    font-size: 20px;
+    margin: 0;
+    color: $color-dark;
+  }
+
+  p {
+    margin: 4px 0;
+    font-size: 14px;
+    color: $color-text-light;
+  }
+}
+
+.order-item-price {
+  color: $color-primary;
+  font-weight: 700;
+  margin-top: 6px;
+  display: inline-block;
+}
+
+/* COUNTER */
+.order-item-controls {
+  @include flex-center;
+  gap: 10px;
+
+  button {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    border: 1px solid $color-accent;
+    background: white;
+    cursor: pointer;
+    transition: $transition;
+    font-size: 16px;
+
+    &:hover {
+      background: $color-light;
+    }
+  }
+
+  .delete-btn {
+    border-color: transparent;
+    background: #ffeaea;
+    color: #c0392b;
+
+    &:hover {
+      background: #ffd6d6;
+    }
+  }
+}
+
+/* DROPDOWNS (как в макете) */
+.order-dropdown {
+  @include flex-between;
+  margin-top: 12px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid $color-accent;
+  cursor: pointer;
+  background: $color-light;
+  transition: $transition;
+
+
+  span {
+    font-size: 14px;
+    color: $color-text-dark;
+  }
+}
+
+.order-dropdown-body {
+  margin-top: 10px;
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid $color-accent;
+  background: white;
+
+  label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 0;
+    font-size: 14px;
+    cursor: pointer;
+  }
+}
+
+.dropdown-topping-container {
+  width: 25%;
+  @include flex-between;
+}
+
+.syrup-options {
+  margin-left: 18px;
+  margin-top: 8px;
+}
+
+/* COMMENTS */
+.order-comments {
+  margin-top: 24px;
+
+  h3 {
+    font-family: $font-head;
+    margin-bottom: 10px;
+  }
+
+  input {
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    border: 1px solid $color-accent;
+    font-family: $font-body;
+    outline: none;
+
+    &:focus {
+      border-color: $color-primary;
+    }
+  }
+}
+
+/* PAYMENT */
+.order-payment {
+  margin-top: 30px;
+
+  h2 {
+    font-family: $font-head;
+    margin-bottom: 12px;
+  }
+
+  .payment-options-container {
+    @include flex-between;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+
+    & > * {
+      display: flex;
+      flex: 1;
+    }
+  }
+
+  .payment-option {
+    @include flex-center;
+    padding: 12px 14px;
+    border: 1px solid $color-accent;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: $transition;
+    background: white;
+
+    &:hover {
+      background: $color-light;
+    }
+
+    &.active {
+      border-color: $color-primary;
+      background: $color-accent;
+    }
+
+    & > *:first-child {
+      appearance: none;
+    }
+  }
+}
+
+/* SUMMARY */
+.order-summary {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid $color-accent;
+
+  .order-summary-row {
+    @include flex-between;
+    margin-bottom: 8px;
+
+    span {
+      font-size: 15px;
+    }
+  }
+
+  .total {
+    font-weight: 700;
+    font-size: 18px;
+  }
+
+  .confirm-btn {
+    @include button($color-primary);
+    width: 100%;
+    margin-top: 18px;
+    font-weight: 600;
+    font-size: 16px;
+  }
+}
