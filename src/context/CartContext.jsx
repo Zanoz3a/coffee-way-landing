@@ -12,30 +12,78 @@ export const CartProvider = ({ children }) => {
         localStorage.setItem("cart", JSON.stringify(cart));
     }, [cart]);
 
+    const getDefaultStructure = (category) => {
+        switch(category) {
+            case 'Coffee': return { milk: 'Cow', toppings: [], syrups: [] }
+            case 'Bubble Tea': return { milk: 'Cow', base: 'Tapioca pearls', toppings: [], syrups: [] }
+            case 'Desserts': return { toppings: [] }
+            case 'Soft Ice Cream': return { toppings: [], syrups: [] }
+            case 'Drip Bags': return {}
+            default: return {}
+        }
+    }
+
     const addToCart = (item) => {
         setCart(prev => {
             const existing = prev.find(i => i.id === item.id);
+
             if (existing) {
-                return (prev.map(i => i.id === item.id ? {...i, quantity : i.quantity + 1 } : i))
+                return (prev.map(i => i.id === item.id
+                    ? {
+                        ...i, instances: [
+                            ...i.instances, {
+                                id: i.instances.length + 1,
+                                structure: getDefaultStructure(item.category)}
+                        ]
+                    }
+                    : i
+                ))
             }
-            return [...prev, { ...item, quantity: 1 }];
+
+            return [...prev, {
+                productId: item.id,
+                name: item.name,
+                desc: item.description,
+                price: item.price,
+                source: item.source,
+                category: item.category,
+                instances: [
+                    { id: item.id, structure: getDefaultStructure(item.category) },
+                ],
+            }];
         });
     }
 
-    const removeFromCart = (id) => {
-        setCart(prev => prev.filter(i => i.id !== id));
+    const removeInstance = (productId, instanceId) => {
+        setCart(prev => {
+            return prev
+                .map(item => item.productId === productId
+                    ? { ...item, instances: item.instances.filter(i => i.id !== instanceId) }
+                    : item
+                ).filter(i => i.instances.length > 0);
+        });
     }
 
+    const removeProduct = (productId) => {
+        setCart(prev => prev.filter(i => i.productId !== productId))
+    }
 
-    const updateCart = (id, quantity) => {
-        if (quantity === 0) return removeFromCart(id);
-        setCart(prev => prev.map(i => i.id === id ? { ...i, quantity } : i));
+    const updateInstance = (productId, instanceId, structure) => {
+        setCart(prev => prev.map(item =>
+            item.productId === productId
+                ? { ...item, instances: item.instances.map(i => i.id === instanceId
+                    ? {...i, structure: structure} : i
+                    )
+                }
+                : item
+            )
+        )
     }
 
     const clearCart = () => setCart([]);
 
-    const totalItems = cart.reduce((sum, i) => sum + i.quantity, 0);
-    const totalPrice = cart.reduce((sum, i) => sum + i.price * i.quantity, 0).toFixed(2);
+    const totalItems = cart.reduce((sum, i) => sum + i.instances.length, 0);
+    const totalPrice = cart.reduce((sum, i) => sum + i.price * i.instances.length, 0).toFixed(2);
 
     const [itemToppings, setItemToppings] = useState({});
     const updateItemToppings = (id, toppings, toppingPrice) => {
@@ -53,8 +101,9 @@ export const CartProvider = ({ children }) => {
             value={{
                 cart,
                 addToCart,
-                removeFromCart,
-                updateCart,
+                removeInstance,
+                removeProduct,
+                updateInstance,
                 clearCart,
                 totalItems,
                 totalPrice,
